@@ -20,22 +20,21 @@ class UserController {
 
       return res.json(userData);
     } catch (e) {
-      console.log('UserController/registration');
-      console.error(e);
+      next(e);
     }
   }
 
   async login(req, res, next) {
     try {
     } catch (e) {
-      console.error(e);
+      next(e);
     }
   }
 
   async logout(req, res, next) {
     try {
     } catch (e) {
-      console.error(e);
+      next(e);
     }
   }
 
@@ -47,15 +46,14 @@ class UserController {
 
       return res.redirect(CLIENT_URL);
     } catch (e) {
-      console.log('👾 user-controller/activate 👾');
-      console.error(e);
+      next(e);
     }
   }
 
   async refresh(req, res, next) {
     try {
     } catch (e) {
-      console.error(e);
+      next(e);
     }
   }
 
@@ -63,7 +61,7 @@ class UserController {
     try {
       res.json('Hello world!');
     } catch (e) {
-      console.error(e);
+      next(e);
     }
   }
 }

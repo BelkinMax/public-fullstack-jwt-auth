@@ -10,6 +10,8 @@ const mongoose = require('mongoose');
 
 const router = require('./router');
 
+const errorMiddleware = require('./middleware/error-middleware');
+
 const { DB_USERNAME, DB_PASSWORD, DB_NAME, PORT = 5000 } = process.env;
 
 const app = express();
@@ -18,6 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use('/api', router);
+app.use(errorMiddleware);
 
 const start = async () => {
   try {

@@ -10,6 +10,8 @@ const TokenService = require('./token-service');
 
 const UserDto = require('../dtos/user-dto');
 
+const ApiError = require('../exceptions/api-errors');
+
 class UserService {
   async registration(params) {
     const { email, password } = params;
@@ -18,7 +20,9 @@ class UserService {
     const candidate = await UserModel.findOne({ email });
 
     if (candidate) {
-      throw new Error(`User with email address: ${email} already exists!`);
+      throw ApiError.BadRequest(
+        `User with email address: ${email} already exists!`
+      );
     }
 
     // Hash password
@@ -55,7 +59,7 @@ class UserService {
       const user = await UserModel.findOne({ activationLink });
 
       if (!user) {
-        throw new Error('Bad activation url');
+        throw ApiError.BadRequest('Bad activation url');
       }
 
       user.isActivated = true;
