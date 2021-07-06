@@ -8,14 +8,18 @@ const cookieParser = require('cookie-parser');
 
 const mongoose = require('mongoose');
 
-const PORT = process.env.PORT || 5000;
+const { DB_USERNAME, DB_PASSWORD, DB_NAME, PORT = 5000 } = process.env;
 
 const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
 
 const start = async () => {
   try {
     await mongoose.connect(
-      `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.1y6xw.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+      `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.1y6xw.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
