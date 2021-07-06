@@ -4,6 +4,7 @@ class UserController {
   async registration(req, res, next) {
     try {
       const { email, password } = req.body;
+
       const userData = await UserService.registration({ email, password });
 
       const maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
@@ -15,6 +16,7 @@ class UserController {
 
       return res.json(userData);
     } catch (e) {
+      console.log('UserController/registration');
       console.error(e);
     }
   }

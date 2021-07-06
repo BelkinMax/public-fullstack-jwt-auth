@@ -9,7 +9,6 @@ const EmailService = require('./email-service');
 const TokenService = require('./token-service');
 
 const UserDto = require('../dtos/user-dto');
-const tokenService = require('./token-service');
 
 class UserService {
   async registration(params) {
@@ -30,7 +29,7 @@ class UserService {
 
     const user = await UserModel.create({
       email,
-      hashPassword,
+      password: hashPassword,
       activationLink,
     });
 
@@ -40,7 +39,7 @@ class UserService {
     const userDto = new UserDto(user);
     const tokens = await TokenService.generateTokens({ ...userDto });
 
-    await tokenService.saveToken({
+    await TokenService.saveToken({
       userId: userDto.id,
       refreshToken: tokens.refreshToken,
     });
