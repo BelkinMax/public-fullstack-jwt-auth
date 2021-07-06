@@ -84,7 +84,7 @@ class UserService {
     // Compare hash password
     const isCorrectPassword = await bcrypt.compare(password, user.password);
 
-    if (isCorrectPassword) {
+    if (!isCorrectPassword) {
       throw ApiError.BadRequest('Password is not correct!');
     }
 
