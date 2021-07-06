@@ -70,6 +70,38 @@ class UserService {
       console.error(e);
     }
   }
+
+  async login(props) {
+    const { email, password } = props;
+
+    // Check if email exists in ddbb
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      throw ApiError.BadRequest(`Email: ${email} not exists!`);
+    }
+
+    // Compare hash password
+    const isCorrectPassword = await bcrypt.compare(password, user.password);
+
+    if (isCorrectPassword) {
+      throw ApiError.BadRequest('Password is not correct!');
+    }
+
+    // Generate and save tokens
+    const userDto = new UserDto(user);
+    const tokens = await TokenService.generateTokens({ ...userDto });
+
+    await TokenService.saveToken({
+      userId: userDto.id,
+      refreshToken: tokens.refreshToken,
+    });
+
+    return {
+      ...tokens,
+      user: userDto,
+    };
+  }
 }
 
 module.exports = new UserService();
