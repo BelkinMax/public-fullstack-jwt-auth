@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const tokenModel = require('../models/token-model');
 
 const { JWT_ACCESS_KEY, JWT_REFRESH_KEY } = process.env;
+
 const EXPIRES_ACCESS = '30m';
 const EXPIRES_REFRESH = '30d';
 
@@ -41,6 +42,11 @@ class TokenService {
     const token = await tokenModel.create({ user: userId, refreshToken });
 
     return token;
+  }
+
+  async removeToken(refreshToken) {
+    const tokenData = await tokenModel.deleteOne({ refreshToken });
+    return tokenData;
   }
 }
 

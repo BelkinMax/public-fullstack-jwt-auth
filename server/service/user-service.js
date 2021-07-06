@@ -71,8 +71,8 @@ class UserService {
     }
   }
 
-  async login(props) {
-    const { email, password } = props;
+  async login(params) {
+    const { email, password } = params;
 
     // Check if email exists in ddbb
     const user = await UserModel.findOne({ email });
@@ -101,6 +101,12 @@ class UserService {
       ...tokens,
       user: userDto,
     };
+  }
+
+  async logout(refreshToken) {
+    const token = await TokenService.removeToken(refreshToken);
+
+    return token;
   }
 }
 
