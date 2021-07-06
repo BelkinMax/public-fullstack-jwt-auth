@@ -4,7 +4,14 @@ const router = new Router();
 
 const UserController = require('../controllers/user-controller');
 
-router.post('/registration', UserController.registration);
+const { body } = require('express-validator');
+
+router.post(
+  '/registration',
+  body('email').isEmail(),
+  body('password').isLength({ min: 4, max: 16 }),
+  UserController.registration
+);
 router.post('/login', UserController.login);
 router.post('/logout', UserController.logout);
 router.get('/activate/:link', UserController.activate);
