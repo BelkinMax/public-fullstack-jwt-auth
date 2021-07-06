@@ -1,4 +1,8 @@
+require('dotenv').config();
+
 const UserService = require('../service/user-service');
+
+const { CLIENT_URL } = process.env;
 
 class UserController {
   async registration(req, res, next) {
@@ -37,7 +41,13 @@ class UserController {
 
   async activate(req, res, next) {
     try {
+      const activationUUID = req.params.link;
+
+      await UserService.activate(activationUUID);
+
+      return res.redirect(CLIENT_URL);
     } catch (e) {
+      console.log('👾 user-controller/activate 👾');
       console.error(e);
     }
   }
