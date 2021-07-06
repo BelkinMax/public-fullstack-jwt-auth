@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 
 const mongoose = require('mongoose');
 
+const router = require('./router');
+
 const { DB_USERNAME, DB_PASSWORD, DB_NAME, PORT = 5000 } = process.env;
 
 const app = express();
@@ -15,6 +17,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+app.use('/api', router);
 
 const start = async () => {
   try {
