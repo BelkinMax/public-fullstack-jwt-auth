@@ -24,16 +24,16 @@ class UserService {
     // Hash password
     const hashPassword = await bcrypt.hash(password, 5);
 
-    // Create and send activation code
-    const activationCode = uuid.v4();
+    // Create and send activation uuid
+    const activationUUID = uuid.v4();
 
     const user = await UserModel.create({
       email,
       password: hashPassword,
-      activationCode,
+      activationLink: activationUUID,
     });
 
-    await EmailService.sendActivationEmail({ email, code: activationCode });
+    await EmailService.sendActivationEmail({ email, uuid: activationUUID });
 
     // Generate and save tokens
     const userDto = new UserDto(user);

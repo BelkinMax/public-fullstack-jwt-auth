@@ -19,9 +19,10 @@ class EmailService {
   }
 
   async sendActivationEmail(params) {
-    const { email, code } = params;
+    const { email, uuid } = params;
 
-    const url = `${API_URL}:${PORT}/api/activate/${code}`;
+    const url = `${API_URL}:${PORT}/api/activate/${uuid}`;
+    // http://localhost:5000/api/activate/64d94f15-e544-411c-b62b-0952a691c6bb
 
     try {
       await this.transporter.sendMail({
