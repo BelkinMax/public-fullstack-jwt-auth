@@ -1,26 +1,41 @@
 <template>
   <main class="flex-col-center animated-gradient-back p-4 pb-20">
-    <section class="card_main w-10/12 mb-4">
+    <form @submit.prevent="getFormData" class="card_main w-10/12 mb-4">
       <input
+        v-model="form.username"
         v-if="isCreateAccount"
         class="input_main placeholder-gray-900 mb-4 p-2 w-full"
         type="text"
         placeholder="Username"
+        required
+        :minlength="4"
+        :maxlength="12"
       />
       <input
+        v-model="form.email"
         class="input_main placeholder-gray-900 mb-4 p-2 w-full"
         type="email"
         placeholder="Email"
+        required
       />
       <input
+        v-model="form.password"
         class="input_main placeholder-gray-900 mb-4 p-2 w-full"
         type="password"
         placeholder="Password"
+        required
+        :minlength="4"
+        :maxlength="32"
       />
 
       <div class="cta_primary">
         <div class="w-full sm:w-1/2 flex items-center">
-          <input id="remember-me" type="checkbox" class="mr-2" />
+          <input
+            v-model="form.isRemember"
+            id="remember-me"
+            type="checkbox"
+            class="mr-2"
+          />
           <label for="remember-me">Remember me!</label>
         </div>
         <button
@@ -30,11 +45,11 @@
           {{ isCreateAccount ? "Submit" : "Log In" }}
         </button>
       </div>
-    </section>
+    </form>
 
     <section class="card_main w-10/12">
       <div
-      :class="isCreateAccount ? 'justify-center' : 'justify-between'"
+        :class="isCreateAccount ? 'justify-center' : 'justify-between'"
         class="cta_secondary text-center flex flex-col sm:flex-row items-center w-full"
       >
         <a
@@ -55,12 +70,23 @@
 export default {
   data() {
     return {
-      isCreateAccount: false
+      isCreateAccount: false,
+
+      form: {
+        username: "",
+        email: "",
+        password: "",
+        isRemember: true
+      }
     };
   },
   methods: {
     switchIsCreateAccount() {
       this.isCreateAccount = !this.isCreateAccount;
+    },
+
+    getFormData() {
+      console.log(this.form);
     }
   }
 };
