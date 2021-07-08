@@ -54,11 +54,9 @@
       <div
         class="cta_secondary text-center flex flex-col-reverse sm:flex-row items-center w-full justify-between"
       >
-        <a
-          @click="switchIsCreateAccount"
-          class="btn_secondary text-center"
-          >{{ isCreateAccount ? "Log in" : "Create an accout" }}</a
-        >
+        <a @click="switchIsCreateAccount" class="btn_secondary text-center">{{
+          isCreateAccount ? "Log in" : "Create an accout"
+        }}</a>
         <a class="btn_secondary mb-4 sm:mb-0">Forgot your password?</a>
       </div>
     </section>
@@ -85,7 +83,24 @@ export default {
     },
 
     getFormData() {
-      console.log(this.form);
+      const { username, email, password, isRemember } = this.form;
+
+      if (this.isCreateAccount) {
+        // call register action
+        console.log(`
+          username: ${username}
+          email: ${email}
+          password: ${password}
+          isRemember: ${isRemember}
+        `);
+      } else {
+        // call login action
+        console.log(`
+          email: ${email}
+          password: ${password}
+          isRemember: ${isRemember}
+        `);
+      }
     }
   }
 };
