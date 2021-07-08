@@ -1,16 +1,19 @@
 <template>
-  <main class="flex-col-center animated-gradient-back p-4 pb-20">
+  <main class="flex-col-center pb-25per animated-gradient-back p-4">
     <form @submit.prevent="getFormData" class="card_main w-10/12 mb-4">
-      <input
-        v-model="form.username"
-        v-if="isCreateAccount"
-        class="input_main placeholder-gray-900 mb-4 p-2 w-full"
-        type="text"
-        placeholder="Username"
-        required
-        :minlength="4"
-        :maxlength="12"
-      />
+      <transition name="slide-fade">
+        <input
+          v-model="form.username"
+          v-if="isCreateAccount"
+          class="input_main placeholder-gray-900 mb-4 p-2 w-full"
+          type="text"
+          placeholder="Username"
+          required
+          :minlength="4"
+          :maxlength="12"
+        />
+      </transition>
+
       <input
         v-model="form.email"
         class="input_main placeholder-gray-900 mb-4 p-2 w-full"
@@ -49,18 +52,14 @@
 
     <section class="card_main w-10/12">
       <div
-        :class="isCreateAccount ? 'justify-center' : 'justify-between'"
-        class="cta_secondary text-center flex flex-col sm:flex-row items-center w-full"
+        class="cta_secondary text-center flex flex-col-reverse sm:flex-row items-center w-full justify-between"
       >
         <a
           @click="switchIsCreateAccount"
-          class="btn_secondary text-center sm:mb-0"
-          :class="isCreateAccount ? 'mb-0' : 'mb-4'"
+          class="btn_secondary text-center"
           >{{ isCreateAccount ? "Log in" : "Create an accout" }}</a
         >
-        <a v-if="!isCreateAccount" class="btn_secondary"
-          >Forgot your password?</a
-        >
+        <a class="btn_secondary mb-4 sm:mb-0">Forgot your password?</a>
       </div>
     </section>
   </main>
@@ -93,8 +92,22 @@ export default {
 </script>
 
 <style lang="postcss">
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.pb-25per {
+  padding-bottom: 25%;
+}
+
 .flex-col-center {
-  @apply flex flex-col items-center justify-center;
+  @apply flex flex-col items-center justify-end;
 }
 
 .animated-gradient-back {
