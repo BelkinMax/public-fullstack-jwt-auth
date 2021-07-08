@@ -1,39 +1,65 @@
 <template>
   <main class="flex-col-center animated-gradient-back p-4 pb-20">
-    <section class="card_main w-10/12">
-      <div class="mb-6">
-        <input
-          class="input_main placeholder-gray-900 mb-4 p-2 w-full"
-          type="text"
-          placeholder="Email"
-        />
-        <input
-          class="input_main placeholder-gray-900 mb-4 p-2 w-full"
-          type="text"
-          placeholder="Password"
-        />
+    <section class="card_main w-10/12 mb-4">
+      <input
+        v-if="isCreateAccount"
+        class="input_main placeholder-gray-900 mb-4 p-2 w-full"
+        type="text"
+        placeholder="Username"
+      />
+      <input
+        class="input_main placeholder-gray-900 mb-4 p-2 w-full"
+        type="email"
+        placeholder="Email"
+      />
+      <input
+        class="input_main placeholder-gray-900 mb-4 p-2 w-full"
+        type="password"
+        placeholder="Password"
+      />
 
-        <div class="flex items-center">
-          <div class="w-1/2 flex items-center">
-            <input id="remember-me" type="checkbox" class="mr-2" />
-            <label for="remember-me">Remember me!</label>
-          </div>
-          <button class="btn_main ml-auto w-1/2" type="submit">
-            Log In
-          </button>
+      <div class="cta_primary">
+        <div class="w-full sm:w-1/2 flex items-center">
+          <input id="remember-me" type="checkbox" class="mr-2" />
+          <label for="remember-me">Remember me!</label>
         </div>
+        <button
+          class="btn_main ml-auto w-full sm:w-1/2 mb-4 sm:mb-0"
+          type="submit"
+        >
+          {{ isCreateAccount ? "Submit" : "Log In" }}
+        </button>
       </div>
+    </section>
 
-      <div class="text-center flex justify-between w-full">
-        <a class="btn_secondary">Create an accout</a>
-        <a class="btn_secondary">Forgot your password?</a>
+    <section class="card_main w-10/12">
+      <div
+        class="cta_secondary text-center flex flex-col sm:flex-row justify-between w-full"
+      >
+        <a @click="switchIsCreateAccount" class="btn_secondary sm:mb-0" :class="isCreateAccount ? 'mb-0' : 'mb-4'">{{
+          isCreateAccount ? "Log in" : "Create an accout"
+        }}</a>
+        <a v-if="!isCreateAccount" class="btn_secondary"
+          >Forgot your password?</a
+        >
       </div>
     </section>
   </main>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      isCreateAccount: false
+    };
+  },
+  methods: {
+    switchIsCreateAccount() {
+      this.isCreateAccount = !this.isCreateAccount;
+    }
+  }
+};
 </script>
 
 <style lang="postcss">
@@ -47,6 +73,10 @@ export default {};
 
 .card_main {
   @apply bg-gray-100 p-6 rounded-xl shadow-lg;
+}
+
+.cta_primary {
+  @apply flex flex-col-reverse items-center;
 }
 
 .input_main {
@@ -73,6 +103,10 @@ export default {};
 @screen sm {
   .card_main {
     @apply w-8/12;
+  }
+
+  .cta_primary {
+    @apply flex-row;
   }
 }
 @screen md {
