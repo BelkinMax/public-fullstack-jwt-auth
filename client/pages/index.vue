@@ -51,30 +51,25 @@ export default {};
 
 .input_main {
   @apply appearance-none block bg-gray-200 rounded border;
-
-  @variants focus {
-    @apply border-teal-500;
-  }
+}
+.input_main:focus {
+  @apply border-teal-500 outline-none;
 }
 
-// Btns
 .btn_main {
   @apply bg-gray-800 text-white p-2 rounded font-semibold;
-
-  @variants hover {
-    @apply bg-gray-900;
-  }
+}
+.btn_main:hover {
+  @apply bg-gray-900;
 }
 
 .btn_secondary {
   @apply text-sm font-bold text-teal-500 cursor-pointer;
-
-  @variants hover {
-    @apply underline;
-  }
+}
+.btn_secondary:hover {
+  @apply underline;
 }
 
-// Media
 @screen sm {
   .card_main {
     @apply w-8/12;
