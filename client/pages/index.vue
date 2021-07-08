@@ -34,11 +34,15 @@
 
     <section class="card_main w-10/12">
       <div
-        class="cta_secondary text-center flex flex-col sm:flex-row justify-between w-full"
+      :class="isCreateAccount ? 'justify-center' : 'justify-between'"
+        class="cta_secondary text-center flex flex-col sm:flex-row items-center w-full"
       >
-        <a @click="switchIsCreateAccount" class="btn_secondary sm:mb-0" :class="isCreateAccount ? 'mb-0' : 'mb-4'">{{
-          isCreateAccount ? "Log in" : "Create an accout"
-        }}</a>
+        <a
+          @click="switchIsCreateAccount"
+          class="btn_secondary text-center sm:mb-0"
+          :class="isCreateAccount ? 'mb-0' : 'mb-4'"
+          >{{ isCreateAccount ? "Log in" : "Create an accout" }}</a
+        >
         <a v-if="!isCreateAccount" class="btn_secondary"
           >Forgot your password?</a
         >
