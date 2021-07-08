@@ -1,18 +1,14 @@
 <template>
-  <main
-    class="h-screen mx-auto p-4 pb-20 bg-gradient-to-r from-blue-400 to-orange-500 via-purple-500 animate-gradient-x flex flex-col items-center justify-center text-gray-700"
-  >
-    <section
-      class="bg-gray-100 p-6 rounded-xl shadow-lg w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12"
-    >
+  <main class="flex-col-center animated-gradient-back p-4 pb-20">
+    <section class="card_main w-10/12">
       <div class="mb-6">
         <input
-          class="mb-4 p-2 appearance-none block w-full bg-gray-200 placeholder-gray-900 rounded border focus:border-teal-500"
+          class="input_main placeholder-gray-900 mb-4 p-2 w-full"
           type="text"
           placeholder="Email"
         />
         <input
-          class="mb-4 p-2 appearance-none block w-full bg-gray-200 placeholder-gray-900 rounded border focus:border-teal-500"
+          class="input_main placeholder-gray-900 mb-4 p-2 w-full"
           type="text"
           placeholder="Password"
         />
@@ -22,24 +18,15 @@
             <input id="remember-me" type="checkbox" class="mr-2" />
             <label for="remember-me">Remember me!</label>
           </div>
-          <button
-            class="ml-auto w-1/2 bg-gray-800 text-white p-2 rounded font-semibold hover:bg-gray-900"
-            type="submit"
-          >
+          <button class="btn_main ml-auto w-1/2" type="submit">
             Log In
           </button>
         </div>
       </div>
 
       <div class="text-center flex justify-between w-full">
-        <a
-          class="text-sm font-bold text-teal-500 hover:underline cursor-pointer"
-          >Create an accout</a
-        >
-        <a
-          class="text-sm font-bold text-teal-500 hover:underline cursor-pointer"
-          >Forgot your password?</a
-        >
+        <a class="btn_secondary">Create an accout</a>
+        <a class="btn_secondary">Forgot your password?</a>
       </div>
     </section>
   </main>
@@ -49,4 +36,63 @@
 export default {};
 </script>
 
-<style lang="scss"></style>
+<style lang="postcss">
+.flex-col-center {
+  @apply flex flex-col items-center justify-center;
+}
+
+.animated-gradient-back {
+  @apply h-screen mx-auto bg-gradient-to-r from-blue-400 to-orange-500 via-purple-500 animate-gradient-x text-gray-700;
+}
+
+.card_main {
+  @apply bg-gray-100 p-6 rounded-xl shadow-lg;
+}
+
+.input_main {
+  @apply appearance-none block bg-gray-200 rounded border;
+
+  @variants focus {
+    @apply border-teal-500;
+  }
+}
+
+// Btns
+.btn_main {
+  @apply bg-gray-800 text-white p-2 rounded font-semibold;
+
+  @variants hover {
+    @apply bg-gray-900;
+  }
+}
+
+.btn_secondary {
+  @apply text-sm font-bold text-teal-500 cursor-pointer;
+
+  @variants hover {
+    @apply underline;
+  }
+}
+
+// Media
+@screen sm {
+  .card_main {
+    @apply w-8/12;
+  }
+}
+@screen md {
+  .card_main {
+    @apply w-6/12;
+  }
+}
+@screen lg {
+  .card_main {
+    @apply w-5/12;
+  }
+}
+@screen xl {
+  .card_main {
+    @apply w-4/12;
+  }
+}
+</style>
