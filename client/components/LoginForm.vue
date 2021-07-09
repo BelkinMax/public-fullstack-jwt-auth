@@ -96,7 +96,9 @@ export default {
           isRemember: ${isRemember}
         `);
 
-        await this.registration({ username, email, password });
+        await this.registration({ username, email, password }).then(() => {
+          this.$router.push("/");
+        });
       } else {
         // call login action
         console.log(`
@@ -105,7 +107,9 @@ export default {
           isRemember: ${isRemember}
         `);
 
-        await this.login({ email, password });
+        await this.login({ email, password }).then(() => {
+          this.$router.push("/");
+        });
       }
     }
   }
