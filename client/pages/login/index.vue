@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-25per w-full h-full flex justify-center items-end">
+  <div class="w-full h-full flex justify-center items-center">
     <LoginForm />
   </div>
 </template>
