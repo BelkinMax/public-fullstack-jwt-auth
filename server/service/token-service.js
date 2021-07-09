@@ -6,7 +6,7 @@ const tokenModel = require('../models/token-model');
 
 const { JWT_ACCESS_KEY, JWT_REFRESH_KEY } = process.env;
 
-const EXPIRES_ACCESS = '15m';
+const EXPIRES_ACCESS = '5m';
 const EXPIRES_REFRESH = '30d';
 
 class TokenService {

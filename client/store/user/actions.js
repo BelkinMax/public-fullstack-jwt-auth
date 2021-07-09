@@ -6,7 +6,7 @@ export const actions = {
   handler: () => {},
 
   async login({ commit }, params) {
-    const { email, password } = params;
+    const { email, password, isRemember } = params;
 
     try {
       const res = await AuthService.login({ email, password });
@@ -16,7 +16,10 @@ export const actions = {
       const { user, accessToken, refreshToken } = res.data;
 
       localStorage.setItem("token", accessToken);
-      document.cookie = `refreshToken=${refreshToken}`;
+
+      if (isRemember) {
+        document.cookie = `refreshToken=${refreshToken}`;
+      }
 
       commit("SET_AUTH", true);
       commit("SET_USER", user);
@@ -26,7 +29,7 @@ export const actions = {
   },
 
   async registration({ commit }, params) {
-    const { username, email, password } = params;
+    const { username, email, password, isRemember } = params;
 
     try {
       const res = await AuthService.registration({ username, email, password });
@@ -36,7 +39,10 @@ export const actions = {
       const { user, accessToken, refreshToken } = res.data;
 
       localStorage.setItem("token", accessToken);
-      document.cookie = `refreshToken=${refreshToken}`;
+
+      if (isRemember) {
+        document.cookie = `refreshToken=${refreshToken}`;
+      }
 
       commit("SET_AUTH", true);
       commit("SET_USER", user);

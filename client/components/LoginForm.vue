@@ -89,25 +89,14 @@ export default {
 
       if (this.isCreateAccount) {
         // call register action
-        console.log(`
-          username: ${username}
-          email: ${email}
-          password: ${password}
-          isRemember: ${isRemember}
-        `);
-
-        await this.registration({ username, email, password }).then(() => {
-          this.$router.push("/");
-        });
+        await this.registration({ username, email, password, isRemember }).then(
+          () => {
+            this.$router.push("/");
+          }
+        );
       } else {
         // call login action
-        console.log(`
-          email: ${email}
-          password: ${password}
-          isRemember: ${isRemember}
-        `);
-
-        await this.login({ email, password }).then(() => {
+        await this.login({ email, password, isRemember }).then(() => {
           this.$router.push("/");
         });
       }
