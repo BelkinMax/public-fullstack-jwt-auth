@@ -12,6 +12,7 @@ module.exports = {
         "gradient-y": "gradient-y 30s ease infinite",
         "gradient-xy": "gradient-xy 30s ease infinite"
       },
+
       keyframes: {
         "gradient-y": {
           "0%, 100%": {
