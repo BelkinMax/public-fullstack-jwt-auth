@@ -96,7 +96,7 @@ export default {
           isRemember: ${isRemember}
         `);
 
-        await this.registration({ email, password });
+        await this.registration({ username, email, password });
       } else {
         // call login action
         console.log(`

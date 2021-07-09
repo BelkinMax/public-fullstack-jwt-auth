@@ -23,10 +23,10 @@ export const actions = {
   },
 
   async registration({ commit }, params) {
-    const { email, password } = params;
+    const { username, email, password } = params;
 
     try {
-      const res = await AuthService.logout({ email, password });
+      const res = await AuthService.registration({ username, email, password });
 
       console.log(res); // TEST
 
