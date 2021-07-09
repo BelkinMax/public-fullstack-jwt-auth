@@ -8,12 +8,15 @@ export const actions = {
 
     try {
       const res = await AuthService.login({ email, password });
+
+      console.log(res); // TEST
+
       const { user, accessToken } = res.data;
 
       localStorage.setItem("token", accessToken);
 
-      commit("SER_AUTH", true);
-      commit("SER_USER", user);
+      commit("SET_AUTH", true);
+      commit("SET_USER", user);
     } catch (e) {
       console.error(e.response?.data?.message);
     }
@@ -24,12 +27,15 @@ export const actions = {
 
     try {
       const res = await AuthService.logout({ email, password });
+
+      console.log(res); // TEST
+
       const { user, accessToken } = res.data;
 
       localStorage.setItem("token", accessToken);
 
-      commit("SER_AUTH", true);
-      commit("SER_USER", user);
+      commit("SET_AUTH", true);
+      commit("SET_USER", user);
     } catch (e) {
       console.error(e.response?.data?.message);
     }
@@ -41,8 +47,8 @@ export const actions = {
 
       localStorage.removeItem("token");
 
-      commit("SER_AUTH", false);
-      commit("SER_USER", {});
+      commit("SET_AUTH", false);
+      commit("SET_USER", {});
     } catch (e) {
       console.error(e.response?.data?.message);
     }

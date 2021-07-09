@@ -1,4 +1,4 @@
-const SET_IS_AUTH = (state, payload) => {
+const SET_AUTH = (state, payload) => {
   state.isAuth = payload;
 };
 
@@ -7,6 +7,6 @@ const SET_USER = (state, payload) => {
 };
 
 export default {
-  SET_IS_AUTH,
+  SET_AUTH,
   SET_USER
 };

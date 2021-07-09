@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
@@ -76,11 +78,13 @@ export default {
     };
   },
   methods: {
+    ...mapActions("user", ["login", "registration"]),
+
     switchIsCreateAccount() {
       this.isCreateAccount = !this.isCreateAccount;
     },
 
-    getFormData() {
+    async getFormData() {
       const { username, email, password, isRemember } = this.form;
 
       if (this.isCreateAccount) {
@@ -91,6 +95,8 @@ export default {
           password: ${password}
           isRemember: ${isRemember}
         `);
+
+        await this.registration({ email, password });
       } else {
         // call login action
         console.log(`
@@ -98,6 +104,8 @@ export default {
           password: ${password}
           isRemember: ${isRemember}
         `);
+
+        await this.login({ email, password });
       }
     }
   }
