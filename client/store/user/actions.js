@@ -1,3 +1,5 @@
+import axios from "axios";
+import { API_URL } from "~/app/http";
 import AuthService from "~/app/services/AuthService";
 
 export const actions = {
@@ -49,6 +51,23 @@ export const actions = {
 
       commit("SET_AUTH", false);
       commit("SET_USER", {});
+    } catch (e) {
+      console.error(e.response?.data?.message);
+    }
+  },
+
+  async checkAuth({ commit }) {
+    try {
+      const res = await axios.get(`${API_URL}/refresh`, {
+        withCredentials: true
+      });
+
+      const { user, accessToken } = res.data;
+
+      localStorage.setItem("token", accessToken);
+
+      commit("SET_AUTH", true);
+      commit("SET_USER", user);
     } catch (e) {
       console.error(e.response?.data?.message);
     }
