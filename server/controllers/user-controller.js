@@ -2,11 +2,17 @@ require('dotenv').config();
 
 const UserService = require('../service/user-service');
 
-const { CLIENT_URL } = process.env;
+const { CLIENT_URL, NODE_ENV } = process.env;
 
 const { validationResult } = require('express-validator');
 
 const ApiError = require('../exceptions/api-errors');
+
+const cookieConfig = {
+  secure: NODE_ENV !== 'development',
+  maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+  httpOnly: true,
+};
 
 class UserController {
   async registration(req, res, next) {
@@ -25,12 +31,7 @@ class UserController {
         password,
       });
 
-      const maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-
-      res.cookie('refreshToken', userData.refreshToken, {
-        maxAge,
-        httpOnly: true,
-      });
+      res.cookie('refreshToken', userData.refreshToken, cookieConfig);
 
       return res.json(userData);
     } catch (e) {
@@ -44,12 +45,7 @@ class UserController {
 
       const userData = await UserService.login({ email, password });
 
-      const maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-
-      res.cookie('refreshToken', userData.refreshToken, {
-        maxAge,
-        httpOnly: true,
-      });
+      res.cookie('refreshToken', userData.refreshToken, cookieConfig);
 
       return res.json(userData);
     } catch (e) {
@@ -89,12 +85,7 @@ class UserController {
 
       const userData = await UserService.refresh(refreshToken);
 
-      const maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-
-      res.cookie('refreshToken', userData.refreshToken, {
-        maxAge,
-        httpOnly: true,
-      });
+      res.cookie('refreshToken', userData.refreshToken, cookieConfig);
 
       return res.json(userData);
     } catch (e) {

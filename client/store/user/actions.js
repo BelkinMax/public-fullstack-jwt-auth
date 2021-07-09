@@ -13,9 +13,10 @@ export const actions = {
 
       console.log(res); // TEST
 
-      const { user, accessToken } = res.data;
+      const { user, accessToken, refreshToken } = res.data;
 
       localStorage.setItem("token", accessToken);
+      document.cookie = `refreshToken=${refreshToken}`;
 
       commit("SET_AUTH", true);
       commit("SET_USER", user);
@@ -32,9 +33,10 @@ export const actions = {
 
       console.log(res); // TEST
 
-      const { user, accessToken } = res.data;
+      const { user, accessToken, refreshToken } = res.data;
 
       localStorage.setItem("token", accessToken);
+      document.cookie = `refreshToken=${refreshToken}`;
 
       commit("SET_AUTH", true);
       commit("SET_USER", user);
@@ -62,9 +64,10 @@ export const actions = {
         withCredentials: true
       });
 
-      const { user, accessToken } = res.data;
+      const { user, accessToken, refreshToken } = res.data;
 
       localStorage.setItem("token", accessToken);
+      document.cookie = `refreshToken=${refreshToken}`;
 
       commit("SET_AUTH", true);
       commit("SET_USER", user);
