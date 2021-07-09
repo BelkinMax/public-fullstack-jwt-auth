@@ -14,14 +14,21 @@ const ApiError = require('../exceptions/api-errors');
 
 class UserService {
   async registration(params) {
-    const { email, password } = params;
+    const { username, email, password } = params;
 
     // Check if email already in use
-    const candidate = await UserModel.findOne({ email });
+    const candidateEmail = await UserModel.findOne({ email });
+    const candidateUsername = await UserModel.findOne({ username });
 
-    if (candidate) {
+    if (candidateEmail) {
       throw ApiError.BadRequest(
         `User with email address: ${email} already exists!`
+      );
+    }
+
+    if (candidateUsername) {
+      throw ApiError.BadRequest(
+        `User with username: ${username} already exists!`
       );
     }
 
@@ -32,6 +39,7 @@ class UserService {
     const activationUUID = uuid.v4();
 
     const user = await UserModel.create({
+      username,
       email,
       password: hashPassword,
       activationLink: activationUUID,
