@@ -1,8 +1,14 @@
 <template>
-  <div
-    class="w-full h-full grid grid-flow-row grid-cols-4 grid-rows-6 gap-4 p-4"
-  >
-    <UserCard v-for="user in usersList" :key="user.id" :user="user" />
+  <div class="w-full h-full p-4">
+    <div class="card_main w-full flex justify-between items-center mb-4">
+      <h1 class="text-xl font-bold">Hello, {{ user.username }}</h1>
+      <button class="btn_main" @click="userLogout">
+        Logout
+      </button>
+    </div>
+    <div class="w-full h-full grid grid-flow-row grid-cols-4 grid-rows-6 gap-4">
+      <UserCard v-for="user in usersList" :key="user.id" :user="user" />
+    </div>
   </div>
 </template>
 
@@ -35,12 +41,13 @@ export default {
   },
   mounted() {
     this.checkUserAuth();
+    console.log(this.user);
   },
   computed: {
-    ...mapGetters("user", ["isAuth"])
+    ...mapGetters("user", ["isAuth", "user"])
   },
   methods: {
-    ...mapActions("user", ["checkAuth"]),
+    ...mapActions("user", ["checkAuth", "logout"]),
 
     async checkUserAuth() {
       if (localStorage.getItem("token")) {
@@ -50,6 +57,12 @@ export default {
       if (!this.isAuth) {
         this.$router.push("/login");
       }
+    },
+
+    async userLogout() {
+      await this.logout();
+
+      this.$router.push("/login");
     }
   }
 };

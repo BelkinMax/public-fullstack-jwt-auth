@@ -31,7 +31,7 @@ class UserController {
         password,
       });
 
-      res.cookie('refreshToken', userData.refreshToken, cookieConfig);
+      // res.cookie('refreshToken', userData.refreshToken, cookieConfig);
 
       return res.json(userData);
     } catch (e) {
@@ -45,7 +45,7 @@ class UserController {
 
       const userData = await UserService.login({ email, password });
 
-      res.cookie('refreshToken', userData.refreshToken, cookieConfig);
+      // res.cookie('refreshToken', userData.refreshToken, cookieConfig);
 
       return res.json(userData);
     } catch (e) {
@@ -59,7 +59,7 @@ class UserController {
 
       const token = await UserService.logout(refreshToken);
 
-      res.clearCookie('refreshToken');
+      // res.clearCookie('refreshToken');
 
       return res.json(token);
     } catch (e) {
@@ -85,7 +85,7 @@ class UserController {
 
       const userData = await UserService.refresh(refreshToken);
 
-      res.cookie('refreshToken', userData.refreshToken, cookieConfig);
+      // res.cookie('refreshToken', userData.refreshToken, cookieConfig);
 
       return res.json(userData);
     } catch (e) {

@@ -45,14 +45,17 @@ export const actions = {
     }
   },
 
-  async logout() {
+  async logout({ commit }) {
     try {
-      await AuthService.logout();
+      const res = await AuthService.logout();
 
-      localStorage.removeItem("token");
+      if (res.status) {
+        localStorage.removeItem("token");
+        document.cookie = `refreshToken=expired`;
 
-      commit("SET_AUTH", false);
-      commit("SET_USER", {});
+        commit("SET_AUTH", false);
+        commit("SET_USER", {});
+      }
     } catch (e) {
       console.error(e.response?.data?.message);
     }
