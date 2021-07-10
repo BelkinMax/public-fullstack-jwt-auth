@@ -8,11 +8,11 @@ const { validationResult } = require('express-validator');
 
 const ApiError = require('../exceptions/api-errors');
 
-const cookieConfig = {
-  secure: NODE_ENV !== 'development',
-  maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-  httpOnly: true,
-};
+// const cookieConfig = {
+//   secure: NODE_ENV !== 'development',
+//   maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+//   httpOnly: true,
+// };
 
 class UserController {
   async registration(req, res, next) {
@@ -96,6 +96,18 @@ class UserController {
   async getUsers(_, res, next) {
     try {
       const users = await UserService.getAllUsers();
+
+      res.json(users);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async getUsersExceptCurrent(req, res, next) {
+    try {
+      const { id } = req.user;
+
+      const users = await UserService.getAllUsersExceptCurrent(id);
 
       res.json(users);
     } catch (e) {

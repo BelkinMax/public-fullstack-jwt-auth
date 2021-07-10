@@ -1,6 +1,6 @@
 <template>
-  <section class="animated-gradient-back flex justify-center">
-    <main class="container h-screen w-screen">
+  <section class="animated-gradient-back flex justify-center h-screen w-screen fixed overflow-y-scroll">
+    <main class="container">
       <Nuxt />
     </main>
   </section>

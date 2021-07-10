@@ -1,7 +1,9 @@
 <template>
   <div class="w-full h-full p-4">
-    <div class="card_main w-full flex justify-between items-center mb-4">
-      <div class="flex space-x-4">
+    <div
+      class="card_main w-full flex flex-col space-y-4 justify-between items-center mb-4"
+    >
+      <div class="flex flex-col space-y-4 sm:space-x-4">
         <h1 class="text-xl font-bold">{{ user.username }}</h1>
         <div
           v-if="!user.isActivated"
@@ -16,8 +18,9 @@
     </div>
     <div
       v-if="isUsersFetched"
-      class="w-full h-full grid grid-flow-row grid-cols-4 grid-rows-6 gap-4"
+      class="w-full grid grid-flow-row grid-cols-1 gap-4"
     >
+      <UserCard v-for="user in users" :key="user.id" :user="user" />
       <UserCard v-for="user in users" :key="user.id" :user="user" />
     </div>
   </div>
@@ -38,11 +41,11 @@ export default {
     await this.checkUserAuth();
 
     if (this.isAuth) {
-      await this.fetchUsers();
+      await this.fetchUsers({ excludeCurrent: true });
       this.isUsersFetched = true;
     }
 
-    console.log(this.users);
+    console.log(this.user);
   },
   computed: {
     ...mapGetters("user", ["isAuth", "user"]),

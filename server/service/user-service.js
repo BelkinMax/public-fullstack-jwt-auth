@@ -146,6 +146,14 @@ class UserService {
 
     return users;
   }
+
+  async getAllUsersExceptCurrent(userId) {
+    const users = await UserModel.find({
+      _id: { $nin: userId },
+    });
+
+    return users;
+  }
 }
 
 module.exports = new UserService();

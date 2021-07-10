@@ -3,9 +3,11 @@ import UserService from "~/app/services/UserService";
 export const actions = {
   handler: () => {},
 
-  async fetchUsers({ commit }) {
+  async fetchUsers({ commit }, params) {
+    const { excludeCurrent } = params;
+
     try {
-      const res = await UserService.fetchUsers();
+      const res = await UserService.fetchUsers({ excludeCurrent });
 
       console.log(res); // TEST
 
