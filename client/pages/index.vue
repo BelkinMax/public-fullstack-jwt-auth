@@ -18,7 +18,7 @@
     </div>
     <div
       v-if="isUsersFetched"
-      class="w-full grid grid-flow-row grid-cols-1 gap-4"
+      class="w-full grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
     >
       <UserCard v-for="user in users" :key="user.id" :user="user" />
       <UserCard v-for="user in users" :key="user.id" :user="user" />
