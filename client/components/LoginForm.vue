@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
@@ -77,6 +77,9 @@ export default {
       }
     };
   },
+  computed:{
+    ...mapGetters('user', ["userError"])
+  },
   methods: {
     ...mapActions("user", ["login", "registration"]),
 
@@ -86,19 +89,29 @@ export default {
 
     async getFormData() {
       const { username, email, password, isRemember } = this.form;
+      let hasError = false;
 
       if (this.isCreateAccount) {
         // call register action
-        await this.registration({ username, email, password, isRemember }).then(
-          () => {
-            this.$router.push("/");
-          }
-        );
+        await this.registration({
+          username,
+          email,
+          password,
+          isRemember
+        }).catch(e => {
+          console.log(e);
+          hasError = true;
+        });
+
+        if (!hasError) this.$router.push("/");
       } else {
         // call login action
-        await this.login({ email, password, isRemember }).then(() => {
-          this.$router.push("/");
+        await this.login({ email, password, isRemember }).catch(e => {
+          console.log(e);
+          hasError = true;
         });
+
+        if (!hasError) this.$router.push("/");
       }
     }
   }
