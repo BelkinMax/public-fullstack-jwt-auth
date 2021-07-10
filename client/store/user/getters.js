@@ -6,7 +6,12 @@ const user = state => {
   return state.user;
 };
 
+const userError = state => {
+  return state.error;
+};
+
 export default {
   isAuth,
-  user
+  user,
+  userError
 };

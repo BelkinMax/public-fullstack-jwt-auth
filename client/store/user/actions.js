@@ -25,6 +25,7 @@ export const actions = {
       commit("SET_USER", user);
     } catch (e) {
       console.error(e.response?.data?.message);
+      commit("SET_ERROR", e.response?.data?.message)
     }
   },
 
@@ -48,6 +49,7 @@ export const actions = {
       commit("SET_USER", user);
     } catch (e) {
       console.error(e.response?.data?.message);
+      commit("SET_ERROR", e.response?.data?.message)
     }
   },
 

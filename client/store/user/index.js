@@ -5,7 +5,8 @@ import { actions } from "./actions";
 const state = () => {
   return {
     user: {},
-    isAuth: false
+    isAuth: false,
+    error: ""
   };
 };
 
