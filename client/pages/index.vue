@@ -14,8 +14,11 @@
         Logout
       </button>
     </div>
-    <div class="w-full h-full grid grid-flow-row grid-cols-4 grid-rows-6 gap-4">
-      <UserCard v-for="user in usersList" :key="user.id" :user="user" />
+    <div
+      v-if="isUsersFetched"
+      class="w-full h-full grid grid-flow-row grid-cols-4 grid-rows-6 gap-4"
+    >
+      <UserCard v-for="user in users" :key="user.id" :user="user" />
     </div>
   </div>
 </template>
@@ -28,34 +31,26 @@ export default {
   components: { UserCard },
   data() {
     return {
-      usersList: [
-        {
-          id: 1,
-          name: "Lorem Ipsum",
-          email: "test@test.com"
-        },
-        {
-          id: 2,
-          name: "Hello World",
-          email: "hello@world.com"
-        },
-        {
-          id: 3,
-          name: "User Name",
-          email: "user@name.com"
-        }
-      ]
+      isUsersFetched: false
     };
   },
-  mounted() {
-    this.checkUserAuth();
-    console.log(this.user);
+  async mounted() {
+    await this.checkUserAuth();
+
+    if (this.isAuth) {
+      await this.fetchUsers();
+      this.isUsersFetched = true;
+    }
+
+    console.log(this.users);
   },
   computed: {
-    ...mapGetters("user", ["isAuth", "user"])
+    ...mapGetters("user", ["isAuth", "user"]),
+    ...mapGetters("users", ["users"])
   },
   methods: {
     ...mapActions("user", ["checkAuth", "logout"]),
+    ...mapActions("users", ["fetchUsers"]),
 
     async checkUserAuth() {
       if (localStorage.getItem("token")) {
