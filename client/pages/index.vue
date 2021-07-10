@@ -1,9 +1,9 @@
 <template>
   <div class="w-full h-full p-4">
     <div
-      class="card_main w-full flex flex-col space-y-4 justify-between items-center mb-4"
+      class="card_main w-full flex flex-col sm:flex-row sm:space-y-0 sm:space-x-4 space-y-4 justify-between items-center mb-4"
     >
-      <div class="flex flex-col space-y-4 sm:space-x-4">
+      <div class="flex flex-col sm:flex-row sm:space-y-0 sm:space-x-4 space-y-4">
         <h1 class="text-xl font-bold">{{ user.username }}</h1>
         <div
           v-if="!user.isActivated"
